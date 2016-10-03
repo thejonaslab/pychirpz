@@ -7,9 +7,14 @@ stand-alone enough to be used in other C++ projects.
 
 Two papers:
 
-> 
+> Rabiner, L. R., Schafer, R. W., & Rader, C. M. (1969). The Chirp
+> z-Transform Algorithm and Its Application. Bell System Technical
+> Journal, 48(5),
+> 1249–1292. http://doi.org/10.1002/j.1538-7305.1969.tb04268.x
 
->
+> Rabiner, L. R., & Schafer, R. W. (1969). The Chirp z-Transform
+> Algorithm. IEEE Transactions on Audio and Electroacoustics, 17(2),
+> 86–92. http://doi.org/10.1109/TAU.1969.1162034
 
 ## Example
 
