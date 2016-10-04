@@ -65,7 +65,7 @@ def chirpz(x, M, A, W):
 @numba.jit
 def chirpz2d(x, M, A, W):
     N = len(x)
-
+    x = x.T
     out = np.zeros((N, M), dtype=np.complex128)
     for i in range(N):
         out[i] = chirpz(x[i], M, A, W)
@@ -97,7 +97,7 @@ def fchirpz2d(x, M, A, W):
     Yr = np.fft.fft2(yn)
     
     vn = np.zeros(L, dtype=np.complex128)
-    for n in range(M-1):
+    for n in range(M):
         vn[n] = W**((-n**2.0)/2.0)
         
     for n in range(L-N+1, L):
@@ -124,3 +124,14 @@ def zoom_fft(x, theta_start, step_size, M):
     W = np.exp(-1j * step_size)
     
     return chirpz(x, M, A, W)
+
+def zoom_fft2(x, theta_start, step_size, M):
+    """
+    "zoomed" version of the fft2, produces M step_sized samples
+    around the unit circle starting at theta_start
+    
+    """
+    A = np.exp(1j * theta_start)
+    W = np.exp(-1j * step_size)
+    
+    return fchirpz2d(x, M, A, W)
