@@ -29,7 +29,8 @@ evaluate the the DFT on it.
 
 
 ## To Do 
-
+- [ ] make real setup.py, cython build
+- [ ] Find a way to make cython build optional 
 - [ ] Create templatized versions of functions to allow float/double operations
 - [ ] Compute the complex exponentiations in a more numerically-stable way 
 - [ ] We should be using block operations for eigen instead of iterating 
