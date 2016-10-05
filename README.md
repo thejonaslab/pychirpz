@@ -1,5 +1,7 @@
 # pyChirpZ
 
+[![Build Status](https://travis-ci.org/ericmjonas/pychirpz.svg?branch=master)](https://travis-ci.org/ericmjonas/pychirpz)
+
 Implementation of the chirp-z transform in python. Can be used to
 evaluate creatively on the unit disk, or to zoom the FFT. Two
 implementations, one in numba and one in C++ with eigen that is
@@ -29,9 +31,9 @@ evaluate the the DFT on it.
 
 
 ## To Do 
-- [ ] make real setup.py, cython build
+- [x] make real setup.py, cython build
 - [ ] Find a way to make cython build optional 
-- [ ] Create templatized versions of functions to allow float/double operations
+- [x] Create templatized versions of functions to allow float/double operations
 - [ ] Compute the complex exponentiations in a more numerically-stable way 
 - [ ] We should be using block operations for eigen instead of iterating 
 - [ ] More checks for types passed into eigen functions
