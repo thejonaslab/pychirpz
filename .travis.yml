@@ -28,5 +28,4 @@ install:
 
 script:
   # Your test script goes here
-  python dumbtest.py
   nosetests tests/
