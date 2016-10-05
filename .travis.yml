@@ -9,8 +9,6 @@ python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "2.7"
 install:
-  #  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50
-  # - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
   # We do this conditionally because it saves us some downloading if the
   # version is the same. 
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
@@ -21,11 +19,8 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - gcc --version
   - export CC=/usr/bin/gcc-5
   - export CXX=/usr/bin/g++-5
-  - $CXX --version
-  - printenv
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Useful for debugging any issues with conda
@@ -36,7 +31,6 @@ install:
   - source activate test-environment
   - pip install pyfftw
   - pip install git+https://github.com/ericmjonas/eigency.git
-  - $CC --version
   - DISTUTILS_DEBUG=1 python setup.py install
   - ls /home/travis/miniconda/envs/test-environment/lib/python2.7/site-packages/chirpz
 
