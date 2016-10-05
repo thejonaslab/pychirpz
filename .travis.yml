@@ -47,5 +47,5 @@ addons:
     - gcc-5
     - g++-5
     - libfftw3-dev
-    - libboost-dev l
-    - ibeigen3-dev
+    - libboost-dev
+    - libeigen3-dev
