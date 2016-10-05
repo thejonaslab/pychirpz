@@ -57,5 +57,5 @@ addons:
     - libeigen3-dev
     - libboost-system-dev
     - libboost-timer-dev
-    - libboost-system
-    - libboost-timer
+    - libboost-system1.54.0
+    - libboost-timer1.54.0
