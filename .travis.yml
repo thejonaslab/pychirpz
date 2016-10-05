@@ -22,6 +22,9 @@ install:
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
   - gcc --version
+  - export CC=gcc-5
+  - export CXX=g++-5
+  - printenv 
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Useful for debugging any issues with conda
