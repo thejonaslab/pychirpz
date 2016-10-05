@@ -25,6 +25,7 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numba pytest cython nose
   - source activate test-environment
   - pip install pyfftw
+  - pip install git+https://github.com/ericmjonas/eigency.git
   - python setup.py install
 
 script:
