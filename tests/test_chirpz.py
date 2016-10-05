@@ -1,5 +1,5 @@
 import numpy as np
-import pychirpz
+import chirpz
 
 
 def test_fft_eq():
@@ -16,7 +16,7 @@ def test_fft_eq():
             w_delta = 2.0*np.pi/N
 
             start = start_idx * w_delta
-            x_chirpz = pychirpz.zoom_fft(x, start, w_delta, M)
+            x_chirpz = chirpz.zoom_fft(x, start, w_delta, M)
 
             np.testing.assert_allclose(np.roll(x_fft, -start_idx)[:M],
                                        x_chirpz[:M], verbose=True)
@@ -36,7 +36,7 @@ def test_fft2d_eq():
             w_delta = 2.0*np.pi/N
 
             start = start_idx * w_delta
-            x_chirpz = pychirpz.zoom_fft2(x, start, w_delta, M)
+            x_chirpz = chirpz.zoom_fft2(x, start, w_delta, M)
 
             x_fft = np.roll(x_fft, -start_idx, axis=0)
             x_fft = np.roll(x_fft, -start_idx, axis=1)
