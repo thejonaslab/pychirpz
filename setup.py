@@ -15,7 +15,7 @@ eigen_include = "" # pkgconfig.cflags('eigen3')
     
 extensions = [Extension(name = "chirpz.cychirpz",
                         sources = ["chirpz/cychirpz.pyx", "chirpz/chirpz.cc"],
-                        extra_compile_args = ['-O3', '-DEIGEN_NO_AUTOMATIC_RESIZING', '-march=native', '-std=c++14', eigen_include],
+                        extra_compile_args = ['-O3', '-DEIGEN_NO_AUTOMATIC_RESIZING', '-march=native', '-std=c++14'],
                         include_dirs = [np.get_include(), "./",] \
                         + eigency.get_includes(include_eigen=True), 
                         extra_link_args = ['-lm', '-lfftw3f', '-lboost_system', '-lboost_timer'], 
