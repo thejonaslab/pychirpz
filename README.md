@@ -28,3 +28,10 @@ evaluate the the DFT on it.
 ## code organization
 
 
+## To Do 
+
+- [ ] Create templatized versions of functions to allow float/double operations
+- [ ] Compute the complex exponentiations in a more numerically-stable way 
+- [ ] We should be using block operations for eigen instead of iterating 
+- [ ] More checks for types passed into eigen functions
+- [ ] Fix the insane row/col major errors
