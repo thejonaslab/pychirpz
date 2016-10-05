@@ -33,7 +33,7 @@ def test_fft_eq():
 
             np.testing.assert_allclose(x_fft[:M],
                                        x_chirpz[:M], verbose=True, 
-                                       atol=1e-3, rtol=1e-4)
+                                       atol=1e-5, rtol=1e-5)
 
 
 #@unittest.skip("temporarily disabled")
@@ -43,7 +43,7 @@ def test_fft2d_eq():
     for M in [10, 20, 256]:
         for start_idx in [0, 5]:
 
-            x = np.random.normal(0, 1, (N, N)).astype(np.float32)
+            x = np.random.normal(0, 1, (N, N)) # .astype(np.float32)
 
             x_fft = pyfftw.interfaces.numpy_fft.fft2(x).T
 
@@ -60,4 +60,4 @@ def test_fft2d_eq():
 
             np.testing.assert_allclose(x_fft[:M, :M],
                                        x_chirpz[:M, :M], verbose=True, 
-                                       rtol=1e-2) # FIXME WOW THIS IS LOW
+                                       rtol=1e-7) # FIXME WOW THIS IS LOW

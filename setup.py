@@ -11,8 +11,6 @@ from Cython.Build import cythonize
 #os.environ["CC"] = "g++-5" 
 #os.environ["CXX"] = "g++-5"
 
-eigen_include = "" # pkgconfig.cflags('eigen3')
-    
 extensions = [Extension(name = "chirpz.cychirpz",
                         sources = ["chirpz/cychirpz.pyx", "chirpz/chirpz.cc"],
                         extra_compile_args = ['-O3', '-DEIGEN_NO_AUTOMATIC_RESIZING', '-march=native', '-std=c++14'],

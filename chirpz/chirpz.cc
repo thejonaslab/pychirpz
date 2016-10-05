@@ -243,6 +243,10 @@ MatrixXcf ChirpZ2d::ifft(const MatrixXcf & in) {
     
 
 }
+template class TChirpZ<c32_t>;
+template class TChirpZ<c64_t>;
+template class TChirpZ2d<c32_t>;
+template class TChirpZ2d<c64_t>;
 
 }
 
