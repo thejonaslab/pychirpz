@@ -38,10 +38,11 @@ install:
   - pip install git+https://github.com/ericmjonas/eigency.git
   - $CC --version
   - DISTUTILS_DEBUG=1 python setup.py install
+  - ls /home/travis/miniconda/envs/test-environment/lib/python2.7/site-packages/chirpz
 
 script:
   # Your test script goes here
-  nosetests tests/
+  cd tests && nosetests
 
 addons:
   apt:
