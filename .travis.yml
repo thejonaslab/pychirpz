@@ -55,3 +55,7 @@ addons:
     - libfftw3-dev
     - libboost-dev
     - libeigen3-dev
+    - libboost-system-dev
+    - libboost-timer-dev
+    - libboost-system
+    - libboost-timer
