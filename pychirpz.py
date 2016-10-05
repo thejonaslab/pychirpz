@@ -91,7 +91,9 @@ def fchirpz2d(x, M, A, W):
     ms = np.arange(M)
     
     yn_scale =  A**(-ns) * W**((ns**2.0)/2.0)
-        
+    
+    a = np.outer(yn_scale, yn_scale)
+
     yn[:N, :N] = x * np.outer(yn_scale, yn_scale)
 
     Yr = np.fft.fft2(yn)
