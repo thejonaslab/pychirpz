@@ -9,8 +9,6 @@ python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "2.7"
 install:
-  - sudo apt-get update
-  - sudo apt-get install libfftw3-dev libboost-dev libeigen3-dev gcc-
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
   # We do this conditionally because it saves us some downloading if the
@@ -48,3 +46,6 @@ addons:
     # install toolchains
     - gcc-5
     - g++-5
+    - libfftw3-dev
+    - libboost-dev l
+    - ibeigen3-dev
