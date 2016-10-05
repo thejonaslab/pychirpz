@@ -2,6 +2,7 @@ import unittest
 import numpy as np
 import sys
 from chirpz import cychirpz
+import pyfftw
 
 # import pyximport; 
 # pyximport.install()
