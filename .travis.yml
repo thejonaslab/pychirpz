@@ -11,6 +11,8 @@ python:
 install:
   - sudo apt-get update
   - sudo apt-get install libfftw3-dev libboost-dev libeigen3-dev gcc-
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 50
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 50
   # We do this conditionally because it saves us some downloading if the
   # version is the same. 
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
@@ -37,10 +39,12 @@ script:
   # Your test script goes here
   nosetests tests/
 
-
 addons:
   apt:
     sources:
+    # add PPAs with more up-to-date toolchains
     - ubuntu-toolchain-r-test
     packages:
-    - g++-5 
+    # install toolchains
+    - gcc-5
+    - g++-5
