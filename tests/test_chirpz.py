@@ -21,7 +21,6 @@ def test_fft_eq():
             np.testing.assert_allclose(np.roll(x_fft, -start_idx)[:M],
                                        x_chirpz[:M], verbose=True)
 
-
 def test_fft2d_eq():
     
     N = 256
