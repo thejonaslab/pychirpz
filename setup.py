@@ -7,8 +7,8 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
 
-os.environ["CC"] = "g++-5" 
-os.environ["CXX"] = "g++-5"
+#os.environ["CC"] = "g++-5" 
+#os.environ["CXX"] = "g++-5"
 
     
 extensions = [Extension(name = "chirpz.cychirpz",
