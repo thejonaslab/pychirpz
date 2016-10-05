@@ -5,8 +5,9 @@ python:
   - "2.7"
 install:
   - sudo apt-get update
+  - sudo apt-get install boost-dev libfftw3-dev libboost-dev libeigen3-dev
   # We do this conditionally because it saves us some downloading if the
-  # version is the same.
+  # version is the same. 
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
       wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
     else
@@ -22,8 +23,8 @@ install:
 
   # Replace dep1 dep2 ... with your dependencies
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numba pytest cython nose
-  #- conda install -q -y numba pytest cython
   - source activate test-environment
+  - pip install pyfftw
   - python setup.py install
 
 script:

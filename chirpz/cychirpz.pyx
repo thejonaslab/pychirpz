@@ -1,5 +1,4 @@
 # distutils: language = c++
-# distutils: sources = chirpz.cc
 
 cimport numpy as np
 import numpy as np
