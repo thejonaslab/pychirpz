@@ -1,11 +1,16 @@
 language: python
+sudo: required
+# https://docs.travis-ci.com/user/ci-environment/ to get a modern gcc etc
+dist: trusty
+
+
 # notes from http://conda.pydata.org/docs/travis.html
 python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "2.7"
 install:
   - sudo apt-get update
-  - sudo apt-get install libfftw3-dev libboost-dev libeigen3-dev
+  - sudo apt-get install libfftw3-dev libboost-dev libeigen3-dev gcc-
   # We do this conditionally because it saves us some downloading if the
   # version is the same. 
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
@@ -31,3 +36,11 @@ install:
 script:
   # Your test script goes here
   nosetests tests/
+
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-5 
