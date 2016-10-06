@@ -1,11 +1,7 @@
 import numpy as np
 import time
-import pychirpz
-import pyximport; 
-pyximport.install()
-import cychirpz
-
-
+import chirpz
+import chirpz.cychirpz
 
 N = 256
 x2d = np.zeros((N, N))
@@ -21,7 +17,7 @@ W = np.exp(-1.0j * 2.0*np.pi * phi_0)
 A = np.exp(-1j * np.pi/16)
 
 
-cyCZ = cychirpz.PyChirpZ2d(N, M, A, W)
+cyCZ = chirpz.cychirpz.PyChirpZ2d32(N, M, A, W)
 
 for i in range(5):
 
@@ -31,7 +27,7 @@ for i in range(5):
     print "fft took", fft2_t2 - fft2_t1
 
     t1 = time.time()
-    out2d = pychirpz.fchirpz2d(x2d, M, A, W)
+    out2d = chirpz.chirpz2d(x2d, M, A, W)
     t2 = time.time()
 
     print "fchirpz took", t2-t1

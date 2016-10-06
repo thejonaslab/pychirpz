@@ -18,73 +18,6 @@ const fc32_t J(0, 1);
 void hello(fc32_t x);
 int nextpo2(int x);
 
-class ChirpZ  {
-    
-public:
-    ChirpZ(int N, int M, fc32_t A, fc32_t W); 
-    ~ChirpZ(void);
-    
-    ArrayXcf compute(const ArrayXcf & x);
-    
-private:
-    int N_; 
-    int M_;
-    fc32_t A_;
-    fc32_t W_;
-
-    int L_;
-    ArrayXcf yn_scale_; 
-
-    fftwf_complex* fftw_in_;
-    fftwf_complex* fftw_out_;
-    
-    fftwf_plan fftw_forward_plan_;
-    fftwf_plan fftw_reverse_plan_;
-
-    ArrayXcf Vr_;
-    ArrayXcf g_scale_;
-
-    // convenience functions, warning, make copies
-    ArrayXcf fft(const ArrayXcf & in);
-    ArrayXcf ifft(ArrayXcf in);
-        
-
-}; 
-
-
-class ChirpZ2d  {
-    
-public:
-    ChirpZ2d(int N, int M, fc32_t A, fc32_t W); 
-    ~ChirpZ2d(void);
-    
-    MatrixXcf compute(const MatrixXcf & x);
-    
-private:
-    int N_; 
-    int M_;
-    fc32_t A_;
-    fc32_t W_;
-
-    int L_;
-    MatrixXcf yn_scale_; 
-
-    fftwf_complex* fftw_in_;
-    fftwf_complex* fftw_out_;
-    
-    fftwf_plan fftw_forward_plan_;
-    fftwf_plan fftw_reverse_plan_;
-
-    MatrixXcf Vr_;
-    MatrixXcf g_scale_;
-
-    // convenience functions, warning, make copies
-    MatrixXcf fft(const MatrixXcf & in);
-    MatrixXcf ifft(const MatrixXcf & in);
-        
-
-}; 
-
 // use a traits class
 struct c32_t
 { 
@@ -123,13 +56,13 @@ struct c64_t
 
 
 template <class T>
-class TChirpZ  {
+class ChirpZ  {
     
 public:
     typedef typename T::c_t c_t;
     typedef typename T::Array Array;
     
-    TChirpZ(int N, int M, c_t A, c_t W) :
+    ChirpZ(int N, int M, c_t A, c_t W) :
         N_(N), M_(M), A_(A), W_(W),
         L_(std::pow(2, nextpo2(N + M -1)))
     {
@@ -172,7 +105,7 @@ public:
     }
     
     
-    ~TChirpZ(void )
+    ~ChirpZ(void )
     {
         T::fft_free(fft_in_);
         T::fft_free(fft_out_); 
@@ -255,7 +188,7 @@ private:
 }; 
 
 template <class T>
-class TChirpZ2d  {
+class ChirpZ2d  {
     
 public:
     typedef typename T::c_t c_t;
@@ -263,7 +196,7 @@ public:
     typedef typename T::Matrix Matrix;
     
 public:
-    TChirpZ2d(int N, int M, c_t A, c_t W) :
+    ChirpZ2d(int N, int M, c_t A, c_t W) :
         N_(N), M_(M), A_(A), W_(W),
         L_(std::pow(2, nextpo2(N + M -1)))
     {
@@ -310,7 +243,7 @@ public:
     }
     
     
-    ~TChirpZ2d(void )
+    ~ChirpZ2d(void )
     {
         T::fft_free(fft_in_);
         T::fft_free(fft_out_); 
