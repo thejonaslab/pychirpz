@@ -20,7 +20,7 @@ Two papers:
 
 ## Example
 
-A basic example can be seen in [this 1D tutorial](https://github.com/ericmjonas/pychirpz/blob/master/examples/basic%20example.ipynb)]. 
+A basic example can be seen in [this 1D tutorial](https://github.com/ericmjonas/pychirpz/blob/master/examples/basic%20example.ipynb). 
 
 
 ## Benchmark 
