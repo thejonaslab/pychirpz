@@ -4,9 +4,10 @@ import math
 
 def dtft(x, omegas):
     """
-    evaluate the DTFT at the indicated points omega for the signal x
+    Exact evaluation the DTFT at the indicated points omega for the signal x
+    Note this is incredibly slow
     
-    x is assumed to run from [-n/2, n/2-1]
+    Note x runs from 0 to N-1
     """
     N = len(x)
     ns = np.arange(N)
