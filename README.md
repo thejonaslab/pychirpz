@@ -20,8 +20,7 @@ Two papers:
 
 ## Example
 
-You have a function defined with finite support and you wish to
-evaluate the the DFT on it. 
+A basic example can be seen in [this 1D tutorial](https://github.com/ericmjonas/pychirpz/blob/master/examples/basic%20example.ipynb)]. 
 
 
 ## Benchmark 
