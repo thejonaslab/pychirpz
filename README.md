@@ -54,14 +54,4 @@ gains relative to simply padding.
 |            4096 | 128 | 128 |       30.1707    |        312.881   |       223.717    |
 |            4096 | 256 | 256 |        9.19736   |         87.8977  |        53.5942   |
 
-## code organization
 
-
-## To Do 
-- [x] make real setup.py, cython build
-- [ ] Find a way to make cython build optional 
-- [x] Create templatized versions of functions to allow float/double operations
-- [ ] Compute the complex exponentiations in a more numerically-stable way 
-- [ ] We should be using block operations for eigen instead of iterating 
-- [ ] More checks for types passed into eigen functions
-- [ ] Fix the insane row/col major errors
