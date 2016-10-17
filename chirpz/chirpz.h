@@ -16,7 +16,10 @@ const float PI = 3.1415926535;
 const fc32_t J(0, 1);
 
 void hello(fc32_t x);
-int nextpo2(int x);
+inline int nextpo2(int x) {
+    return int(std::ceil(std::log2(x)));
+    
+}
 
 // use a traits class
 struct c32_t

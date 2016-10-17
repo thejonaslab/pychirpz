@@ -28,5 +28,6 @@ setup(name='chirpz',
       author_email='jonas@eecs.berkeley.edu',
       url='https://www.github.com/ericmjonas/pychirpz/',
       packages=['chirpz'],
+      package_data={"chirpz" : ['chirpz.h', 'chirpz.cc']}, 
       ext_modules = cythonize(extensions),
      )

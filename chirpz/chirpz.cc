@@ -21,11 +21,6 @@ void hello(fc32_t c) {
 
 }
 
-int nextpo2(int x) {
-    return int(std::ceil(std::log2(x)));
-    
-}
-
 template class ChirpZ<c32_t>;
 template class ChirpZ<c64_t>;
 template class ChirpZ2d<c32_t>;
