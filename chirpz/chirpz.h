@@ -120,8 +120,10 @@ public:
         
         yn_scale_ = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
-            yn_scale_(n) = std::pow(A_, -n) * std::pow(W_,
-                                                       static_cast<number_t>(n*n)/2.0); 
+            c_t a = c_t(std::pow(A_, -n)); 
+            c_t b = std::pow(W_, static_cast<number_t>((n*n)/2.0));
+
+            yn_scale_(n) = a * b;
         }
         
         Array vn = Array::Zero(L_);
