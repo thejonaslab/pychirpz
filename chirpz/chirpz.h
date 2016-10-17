@@ -23,38 +23,73 @@ inline int nextpo2(int x) {
 
 // use a traits class
 struct c32_t
-{ 
-    typedef std::complex<float> c_t;
+{
+    typedef float number_t ; 
+    typedef std::complex<number_t> c_t;
     typedef fftwf_complex fft_complex;
     typedef fftwf_plan fft_plan;
     typedef MatrixXcf Matrix;
     typedef ArrayXcf Array;
-    static constexpr fftwf_complex* (*fft_alloc) (std::size_t)  = fftwf_alloc_complex;
-    static constexpr void (*fft_free) (void *) = fftwf_free;
-    static constexpr void (*fft_execute) (fft_plan) = fftwf_execute;
-    static constexpr fft_plan (*fft_plan_dft_1d)(int, fft_complex*, fft_complex*,
-                                                 int, unsigned int)  = fftwf_plan_dft_1d; 
 
-    static constexpr fft_plan (*fft_plan_dft_2d)(int, int, fft_complex*, fft_complex*,
-                                                 int, unsigned int)  = fftwf_plan_dft_2d; 
+    inline static fft_complex * fft_alloc(std::size_t s) {
+        return fftwf_alloc_complex(s); 
+    }
+    
+    inline static void  fft_free (void * p) {
+        fftwf_free(p);
+    }
+
+    inline static void fft_execute(fft_plan p) {
+        fftwf_execute(p);
+    }
+    
+    inline static fft_plan fft_plan_dft_1d(int a, fft_complex* b, fft_complex* c,
+                             int d, unsigned int e) {
+        return fftwf_plan_dft_1d(a, b, c, d, e);
+    }
+
+    inline static fft_plan fft_plan_dft_2d(int a, int b, fft_complex* c, fft_complex* d,
+                             int e, unsigned int f){
+        
+        return fftwf_plan_dft_2d(a, b, c, d, e, f);
+    }
 
 };
 
 struct c64_t
 { 
-    typedef std::complex<double> c_t;
+    typedef double number_t ; 
+    typedef std::complex<number_t> c_t;
     typedef fftw_complex fft_complex;
     typedef fftw_plan fft_plan;
     typedef MatrixXcd Matrix;
     typedef ArrayXcd Array;
-    static constexpr fftw_complex* (*fft_alloc) (std::size_t)  = fftw_alloc_complex;
-    static constexpr void (*fft_free) (void *) = fftw_free;
-    static constexpr void (*fft_execute) (fft_plan) = fftw_execute;
-    static constexpr fft_plan (*fft_plan_dft_1d)(int, fft_complex*, fft_complex*,
-                                                 int, unsigned int)  = fftw_plan_dft_1d; 
+    
+    inline static fft_complex * fft_alloc(std::size_t s) {
+        return fftw_alloc_complex(s); 
+    }
+    
+    inline static void  fft_free (void * p) {
+        fftw_free(p);
+    }
 
-    static constexpr fft_plan (*fft_plan_dft_2d)(int, int, fft_complex*, fft_complex*,
-                                                 int, unsigned int)  = fftw_plan_dft_2d; 
+    inline static void fft_execute(fft_plan p) {
+        fftw_execute(p);
+    }
+    
+    inline static fft_plan fft_plan_dft_1d(int a, fft_complex* b,
+                                           fft_complex* c,
+                                           int d, unsigned int e) {
+        return fftw_plan_dft_1d(a, b, c, d, e);
+    }
+
+    inline static fft_plan fft_plan_dft_2d(int a, int b, fft_complex* c,
+                                           fft_complex* d,
+                                           int e, unsigned int f){
+        
+        return fftw_plan_dft_2d(a, b, c, d, e, f);
+    }
+
 };
 
 
@@ -62,6 +97,7 @@ template <class T>
 class ChirpZ  {
     
 public:
+    typedef typename T::number_t number_t;
     typedef typename T::c_t c_t;
     typedef typename T::Array Array;
     
@@ -84,7 +120,8 @@ public:
         
         yn_scale_ = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
-            yn_scale_(n) = std::pow(A_, -n) * std::pow(W_, (n*n)/2.0f); 
+            yn_scale_(n) = std::pow(A_, -n) * std::pow(W_,
+                                                       static_cast<number_t>(n*n)/2.0); 
         }
         
         Array vn = Array::Zero(L_);
@@ -195,6 +232,7 @@ class ChirpZ2d  {
     
 public:
     typedef typename T::c_t c_t;
+    typedef typename T::number_t number_t;
     typedef typename T::Array Array;
     typedef typename T::Matrix Matrix;
     
@@ -218,7 +256,10 @@ public:
         
         Array yn_scale_vec = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
-            yn_scale_vec(n) = std::pow(A_, -n) * std::pow(W_, (n*n)/2.0f); 
+            c_t a = c_t(std::pow(A_, -n)); 
+            c_t b = std::pow(W_, static_cast<number_t>((n*n)/2.0));
+
+            yn_scale_vec(n) = a * b; 
         }
         // http://stackoverflow.com/a/20515413/1073963  is noailais() going to save
         // us anything here?
