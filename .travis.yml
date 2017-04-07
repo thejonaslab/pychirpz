@@ -4,6 +4,7 @@ language: python
 os:
   - linux
   - osx
+dist: trusty
 
 
 # notes from http://conda.pydata.org/docs/travis.html
