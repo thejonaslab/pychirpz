@@ -22,6 +22,24 @@ Two papers:
 
 A basic example can be seen in [this 1D tutorial](https://github.com/ericmjonas/pychirpz/blob/master/examples/basic%20example.ipynb). 
 
+## Installation
+
+### Linux
+Make sure you have both  [FFTW](http://www.fftw.org/) and [Boost](http://www.boost.org/)
+installed. On ubuntu-based linux this can be done via
+```
+apt-get install  libfftw3-dev  libboost-dev
+```
+
+
+### OSX 
+
+On OSX, make sure you have all the relevant build tools installed and install
+[FFTW](http://www.fftw.org/) and [Boost](http://www.boost.org/). A recommended way is using Brew:
+```
+brew install boost fftw
+```
+
 
 ## Benchmark 
 
