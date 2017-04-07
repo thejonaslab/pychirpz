@@ -30,7 +30,7 @@ install:
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numba pytest cython nose
   - source activate test-environment
   - pip install pyfftw
-  - pip install eigency
+  - pip install git+https://github.com/wouterboomsma/eigency.git
   - DISTUTILS_DEBUG=1 python setup.py install
   - ls /home/travis/miniconda/envs/test-environment/lib/python2.7/site-packages/chirpz
 
