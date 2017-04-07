@@ -22,8 +22,9 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - if [[ "$TRAVIS_OS_NAME" == "linus" ]]; then export CC=/usr/bin/gcc-5; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linus" ]]; then export CXX=/usr/bin/g++-5; fi
+  - echo $TRAVIS_OS_NAME
+  - if [ "$TRAVIS_OS_NAME" == "linus" ]; then export CC=/usr/bin/gcc-5; fi
+  - if [ "$TRAVIS_OS_NAME" == "linus" ]; then export CXX=/usr/bin/g++-5; fi
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Useful for debugging any issues with conda
