@@ -30,7 +30,7 @@ install:
   - conda create -q -n test-environment python=2.7 numba pytest cython nose
   - source activate test-environment
   - pip install pyfftw
-  - easy_install eigency # pip install git+https://github.com/wouterboomsma/eigency.git
+  - pip install git+https://github.com/ericmjonas/eigency.git
   - DISTUTILS_DEBUG=1 python setup.py install
 
 script:
