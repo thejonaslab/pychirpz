@@ -5,7 +5,7 @@ os:
   - linux
   - osx
 dist: trusty
-
+sudo: true
 
 # notes from http://conda.pydata.org/docs/travis.html
 python:
@@ -63,7 +63,7 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      sudo: required
+      sudo: true
     - os: osx
       osx_image: xcode8.3
 
