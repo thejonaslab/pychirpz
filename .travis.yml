@@ -13,8 +13,9 @@ python:
   - "2.7"
 
 before_install:
-   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tests/setup_osx.sh; fi
-   - if [[ "$TRAVIS_OS_NAME" == "linus" ]]; then tests/setup_linux.sh; fi
+  - echo $TRAVIS_OS_NAME
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tests/setup_osx.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then tests/setup_linux.sh; fi
 
 install:
   # We do this conditionally because it saves us some downloading if the
@@ -22,9 +23,8 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - echo $TRAVIS_OS_NAME
-  - if [ "$TRAVIS_OS_NAME" == "linus" ]; then export CC=/usr/bin/gcc-5; fi
-  - if [ "$TRAVIS_OS_NAME" == "linus" ]; then export CXX=/usr/bin/g++-5; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export CC=/usr/bin/gcc-5; fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export CXX=/usr/bin/g++-5; fi
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   # Useful for debugging any issues with conda
@@ -60,6 +60,7 @@ addons:
 
   
 matrix:
+  fast_finish: true
   include:
     - os: linux
       dist: trusty
