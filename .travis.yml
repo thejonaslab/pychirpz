@@ -9,7 +9,6 @@ sudo: true
 
 # notes from http://conda.pydata.org/docs/travis.html
 python:
-  # We don't actually use the Travis Python, but this keeps it organized.
   - "2.7"
 
 before_install:
@@ -67,4 +66,5 @@ matrix:
       sudo: true
     - os: osx
       osx_image: xcode8.3
+      language: generic
 
