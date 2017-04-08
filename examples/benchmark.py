@@ -3,7 +3,6 @@ import time
 import chirpz
 import chirpz.cychirpz
 import pandas as pd
-import tabulate
 import cPickle as pickle
 from ruffus import * 
 
