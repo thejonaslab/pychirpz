@@ -251,6 +251,8 @@ public:
         // allocate FFT 
         fft_in_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
         fft_out_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
+        ifft_in_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
+        ifft_out_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
 
         int fftw_measure = FFTW_MEASURE;
         if(fftw_patient) {
@@ -260,8 +262,8 @@ public:
                                                fft_out_,
                                                FFTW_FORWARD, fftw_measure); 
         
-        fft_reverse_plan_ = T::fft_plan_dft_2d(L_, L_, fft_in_,
-                                               fft_out_,
+        fft_reverse_plan_ = T::fft_plan_dft_2d(L_, L_, ifft_in_,
+                                               ifft_out_,
                                                FFTW_BACKWARD, fftw_measure);
         Array yn_scale_vec = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
@@ -291,7 +293,7 @@ public:
             g_scale_vec(k) = std::pow(W_, (k*k/2.0f)); 
         }
         
-        g_scale_ = g_scale_vec.matrix() * g_scale_vec.matrix().transpose(); 
+        g_scale_ = g_scale_vec.matrix() * g_scale_vec.matrix().transpose() / (2*N_*2*N_); 
         
     }
     
@@ -300,76 +302,38 @@ public:
     {
         T::fft_free(fft_in_);
         T::fft_free(fft_out_); 
+        T::fft_free(ifft_in_);
+        T::fft_free(ifft_out_); 
         
     }
     
     Matrix compute(const Matrix & x) {
 
-        Matrix yn = Matrix::Zero(L_, L_);
 
-        yn.block(0, 0, x.rows(), x.cols()) =
+        Map<Matrix> in_f((c_t *)fft_in_, L_, L_);
+        in_f = Matrix::Zero(L_, L_);
+        in_f.block(0, 0, x.rows(), x.cols()) =
             (x.array() * yn_scale_.block(0, 0, x.rows(), x.cols()).array()).matrix();
         
-        // for(int i = 0; i < x.rows(); ++i) {
-        //     for(int j = 0; j < x.cols(); ++j ) {
-        //         // FIXME IS THIS THE RIGHT ORDER? memory matters
-        //         yn(i, j) = x(i, j) * yn_scale_(i, j);
-        //     }
-        // }
-        
-        
-        auto Yr = fft(yn);
-        
-        auto Gr = (Yr.array() * Vr_.array()).matrix();
-        
-        auto gk = ifft(Gr);
-        
-
-        auto Xk = (g_scale_.array() * gk.block(0, 0, M_, M_).array()).matrix();
-        
-        // Matrix Xk = Matrix::Zero(M_, M_);
-        // for (int i = 0; i < M_; ++i) {
-        //     for(int j = 0; j < M_; ++j) { 
-        //         Xk(i, j) = g_scale_(i, j) * gk(i, j);
-        //     }
-        // }
-        
-        auto out =  Xk / (2*N_*2*N_);
-        
-        return out; 
-        
-    }
-
-private:
-    
-    Matrix fft(const Ref<const Matrix> & in) {
-        assert(in.rows() == L_); 
-        assert(in.cols() == L_); 
-        Map<Matrix> in_f((c_t *)fft_in_, L_, L_);
-        
-        in_f = in;
         
         T::fft_execute(fft_forward_plan_);
         
         Map<Matrix> out_field((c_t*) fft_out_, L_, L_) ;
-        Matrix out = out_field;
-        return out; 
-    }
-    
-    Matrix ifft(const Ref<const Matrix> & in) {
-        assert(in.rows() == L_); 
-        assert(in.cols() == L_); 
+
+        Map<Matrix> ifft_in_f((c_t *)ifft_in_, L_, L_);
+        ifft_in_f = (out_field.array() * Vr_.array()).matrix();
         
-        Map<Matrix> in_f((c_t *)fft_in_, L_, L_);
-        in_f = in;
         T::fft_execute(fft_reverse_plan_);
         
-        Map<Matrix> out_field((c_t*) fft_out_, L_, L_) ;
-        Matrix out = out_field;
-        return out;
+        Map<Matrix> gk((c_t*) ifft_out_, L_, L_) ;
         
+        auto Xk = (g_scale_.array() * gk.block(0, 0, M_, M_).array()).matrix();
+        
+        return Xk; 
         
     }
+
+private:
     
 
     int N_; 
@@ -382,6 +346,9 @@ private:
 
     typename T::fft_complex* fft_in_;
     typename T::fft_complex* fft_out_;
+    
+    typename T::fft_complex* ifft_in_;
+    typename T::fft_complex* ifft_out_;
     
     typename T::fft_plan fft_forward_plan_;
     typename T::fft_plan fft_reverse_plan_;

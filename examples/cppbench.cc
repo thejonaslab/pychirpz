@@ -30,7 +30,7 @@ int chirpz_benchmark(int argc, const char *argv[]) {
         ("help,h", "Help screen")
         ("N", value<int>()->default_value(256), "input point number")
         ("M", value<int>()->default_value(256), "output point number")
-        ("ITERS", value<int>()->default_value(1000), "Number of transforms to do ")
+        ("iters", value<int>()->default_value(1000), "Number of transforms to do ")
         ;
 
     variables_map vm;
@@ -39,7 +39,8 @@ int chirpz_benchmark(int argc, const char *argv[]) {
     int N = vm["N"].as<int>(); 
     int M = vm["M"].as<int>(); 
 
-    int ITERS = vm["ITERS"].as<int>();
+    int iters = vm["iters"].as<int>();
+    std::cout << "Running for " << iters << " iterations" << std::endl; 
     
     float theta_start = -PI/2.0; 
     float theta_delta = PI / (N)/2.0; 
@@ -56,13 +57,13 @@ int chirpz_benchmark(int argc, const char *argv[]) {
     {
         MatrixXcf x = MatrixXcf::Random(M, M);
         boost::timer::cpu_timer timer;
-        for(int i = 0; i < ITERS; ++i) { 
+        for(int i = 0; i < iters; ++i) { 
             auto y = cz.compute(x); 
         }
         auto ns = boost::chrono::nanoseconds(timer.elapsed().wall);
         auto ms = boost::chrono::duration_cast<boost::chrono::milliseconds>(ns);
  
-        std::cout << ms / double(ITERS) << " per eval" << std::endl; 
+        std::cout << ms / double(iters) << " per eval" << std::endl; 
     }
 
 }
