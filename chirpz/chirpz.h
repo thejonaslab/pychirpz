@@ -101,7 +101,7 @@ public:
     typedef typename T::c_t c_t;
     typedef typename T::Array Array;
     
-    ChirpZ(int N, int M, c_t A, c_t W) :
+    ChirpZ(int N, int M, c_t A, c_t W, bool fftw_patient=true) :
         N_(N), M_(M), A_(A), W_(W),
         L_(std::pow(2, nextpo2(N + M -1)))
     {
@@ -109,14 +109,18 @@ public:
         // allocate FFT 
         fft_in_ = (typename T::fft_complex*)T::fft_alloc(L_);
         fft_out_ = (typename T::fft_complex*)T::fft_alloc(L_);
+        int fftw_measure = FFTW_MEASURE;
+        if(fftw_patient) {
+            fftw_measure = FFTW_PATIENT;
+        }
         
         fft_forward_plan_ = T::fft_plan_dft_1d(L_, fft_in_,
                                                fft_out_,
-                                               FFTW_FORWARD, FFTW_MEASURE);
+                                               FFTW_FORWARD, fftw_measure);
         
         fft_reverse_plan_ = T::fft_plan_dft_1d(L_, fft_in_,
                                                fft_out_,
-                                               FFTW_BACKWARD, FFTW_MEASURE);
+                                               FFTW_BACKWARD, fftw_measure);
         
         yn_scale_ = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
@@ -237,9 +241,9 @@ public:
     typedef typename T::number_t number_t;
     typedef typename T::Array Array;
     typedef typename T::Matrix Matrix;
-    
+
 public:
-    ChirpZ2d(int N, int M, c_t A, c_t W) :
+    ChirpZ2d(int N, int M, c_t A, c_t W, bool fftw_patient=true) :
         N_(N), M_(M), A_(A), W_(W),
         L_(std::pow(2, nextpo2(N + M -1)))
     {
@@ -247,15 +251,18 @@ public:
         // allocate FFT 
         fft_in_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
         fft_out_ = (typename T::fft_complex*)T::fft_alloc(L_ * L_);
-        
+
+        int fftw_measure = FFTW_MEASURE;
+        if(fftw_patient) {
+            fftw_measure = FFTW_PATIENT;
+        }
         fft_forward_plan_ = T::fft_plan_dft_2d(L_, L_, fft_in_,
-                                                fft_out_,
-                                                FFTW_FORWARD, FFTW_MEASURE);
+                                               fft_out_,
+                                               FFTW_FORWARD, fftw_measure); 
         
         fft_reverse_plan_ = T::fft_plan_dft_2d(L_, L_, fft_in_,
                                                fft_out_,
-                                               FFTW_BACKWARD, FFTW_MEASURE);
-        
+                                               FFTW_BACKWARD, fftw_measure);
         Array yn_scale_vec = Array::Zero(L_);
         for(int n = 0; n < N_; n++) {
             c_t a = c_t(std::pow(A_, -n)); 

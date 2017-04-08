@@ -7,6 +7,7 @@ import numpy as np
 from eigency.core cimport *
 
 from libcpp.complex cimport complex as cc
+from libcpp cimport bool
 
 cdef extern from "chirpz.h" namespace "chirpz":
 
@@ -21,23 +22,23 @@ cdef extern from "chirpz.h" namespace "chirpz":
         pass
 
      cdef cppclass ChirpZ32 "chirpz::ChirpZ<chirpz::c32_t>":
-         ChirpZ32(int, int, cc[float], cc[float])
+         ChirpZ32(int, int, cc[float], cc[float], bool)
          ArrayXcf compute(Map[ArrayXcf] &)
 
 
      cdef cppclass ChirpZ64 "chirpz::ChirpZ<chirpz::c64_t>":
-         ChirpZ64(int, int, cc[double], cc[double])
+         ChirpZ64(int, int, cc[double], cc[double], bool)
          ArrayXcd compute(Map[ArrayXcd] &)
 
 
 
      cdef cppclass ChirpZ2d32 "chirpz::ChirpZ2d<chirpz::c32_t>":
-         ChirpZ2d32(int, int, cc[float], cc[float])
+         ChirpZ2d32(int, int, cc[float], cc[float], bool)
          MatrixXcf compute(Map[MatrixXcf] &)
 
 
      cdef cppclass ChirpZ2d64 "chirpz::ChirpZ2d<chirpz::c64_t>":
-         ChirpZ2d64(int, int, cc[double], cc[double])
+         ChirpZ2d64(int, int, cc[double], cc[double], bool)
          MatrixXcd compute(Map[MatrixXcd] &)
 
 
@@ -47,8 +48,8 @@ def hello_world(c):
 cdef class PyChirpZ32:
    cdef ChirpZ32 *thisptr
 
-   def __cinit__(self, int N, int M, cc[float] A, cc[float] W):
-       self.thisptr = new ChirpZ32(N, M, A, W)
+   def __cinit__(self, int N, int M, cc[float] A, cc[float] W, bool fftw_patient=False):
+       self.thisptr = new ChirpZ32(N, M, A, W, fftw_patient)
        
    def __dealloc__(self):
        del self.thisptr
@@ -60,8 +61,8 @@ cdef class PyChirpZ32:
 cdef class PyChirpZ64:
    cdef ChirpZ64 *thisptr
 
-   def __cinit__(self, int N, int M, cc[double] A, cc[double] W):
-       self.thisptr = new ChirpZ64(N, M, A, W)
+   def __cinit__(self, int N, int M, cc[double] A, cc[double] W, bool fftw_patient=False):
+       self.thisptr = new ChirpZ64(N, M, A, W, fftw_patient)
        
    def __dealloc__(self):
        del self.thisptr
@@ -73,8 +74,8 @@ cdef class PyChirpZ64:
 cdef class PyChirpZ2d32:
    cdef ChirpZ2d32 *thisptr
 
-   def __cinit__(self, int N, int M, cc[float] A, cc[float] W):
-       self.thisptr = new ChirpZ2d32(N, M, A, W)
+   def __cinit__(self, int N, int M, cc[float] A, cc[float] W, bool fftw_patient=False):
+       self.thisptr = new ChirpZ2d32(N, M, A, W, fftw_patient)
        
    def __dealloc__(self):
        del self.thisptr
@@ -85,8 +86,8 @@ cdef class PyChirpZ2d32:
 cdef class PyChirpZ2d64:
    cdef ChirpZ2d64 *thisptr
 
-   def __cinit__(self, int N, int M, cc[double] A, cc[double] W):
-       self.thisptr = new ChirpZ2d64(N, M, A, W)
+   def __cinit__(self, int N, int M, cc[double] A, cc[double] W, bool fftw_patient=False):
+       self.thisptr = new ChirpZ2d64(N, M, A, W, fftw_patient)
        
    def __dealloc__(self):
        del self.thisptr
