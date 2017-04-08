@@ -23,7 +23,7 @@ extensions = [Extension(name = "chirpz.cychirpz",
                         extra_compile_args =COMPILE_ARGS, 
                         include_dirs = [np.get_include(), "./",] \
                         + eigency.get_includes(include_eigen=True), 
-                        extra_link_args = ['-lm', '-lfftw3f', '-lboost_system', '-lboost_timer'], 
+                        extra_link_args = ['-lm', '-lfftw3f', '-lfftw3', '-lboost_system', '-lboost_timer'], 
                         language='c++')
 ]
 
