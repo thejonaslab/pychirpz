@@ -335,6 +335,35 @@ public:
 
 private:
     
+    Matrix fft(const Ref<const Matrix> & in) {
+        assert(in.rows() == L_); 
+        assert(in.cols() == L_); 
+        Map<Matrix> in_f((c_t *)fft_in_, L_, L_);
+        
+        in_f = in;
+        
+        T::fft_execute(fft_forward_plan_);
+        
+        Map<Matrix> out_field((c_t*) fft_out_, L_, L_) ;
+        //Matrix out = out_field;
+        return out_field; 
+    }
+    
+    Matrix ifft(const Ref<const Matrix> & in) {
+        assert(in.rows() == L_); 
+        assert(in.cols() == L_); 
+        
+        Map<Matrix> in_f((c_t *)ifft_in_, L_, L_);
+        in_f = in;
+        T::fft_execute(fft_reverse_plan_);
+        
+        Map<Matrix> out_field((c_t*) ifft_out_, L_, L_) ;
+        //Matrix out = out_field;
+        return out_field;
+        
+        
+    }
+    
 
     int N_; 
     int M_;
