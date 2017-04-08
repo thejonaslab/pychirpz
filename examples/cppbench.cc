@@ -7,6 +7,7 @@
 #include <Eigen/Dense>
 #include <vector>
 #include <boost/program_options.hpp>
+#include <chirpz.h> 
 
 /*
   This is a simple stand-alone C++ benchmark of the C++ 
@@ -14,25 +15,34 @@
   and to provide a better framework for microbenchmarking. 
  */
 
+
+using namespace boost::program_options;
+using namespace Eigen; 
+
+typedef std::complex<float> fc32_t;
+
+const float PI = 3.1415926535; 
+const fc32_t J(0, 1);
+
 int chirpz_benchmark(int argc, const char *argv[]) {
     options_description desc{"Options"};
     desc.add_options()
         ("help,h", "Help screen")
-        ("M", value<int>()->default_value(256), "input point number")
-        ("N", value<int>()->default_value(256), "output point number")
+        ("N", value<int>()->default_value(256), "input point number")
+        ("M", value<int>()->default_value(256), "output point number")
         ("ITERS", value<int>()->default_value(1000), "Number of transforms to do ")
         ;
 
     variables_map vm;
     store(parse_command_line(argc, argv, desc), vm);
 
-    int M = vm["M"].as<int>(); 
     int N = vm["N"].as<int>(); 
+    int M = vm["M"].as<int>(); 
 
     int ITERS = vm["ITERS"].as<int>();
     
     float theta_start = -PI/2.0; 
-    float theta_delta = PI / 256; 
+    float theta_delta = PI / (N)/2.0; 
     
     fc32_t A = std::exp(J * theta_start);
     fc32_t W = std::exp(-J * theta_delta);

@@ -2,7 +2,7 @@
 
 all: cppbench
 
-CHIRPZ = /data/jonas/pychirpz/chirpz/
+CHIRPZ = ../chirpz/
 EIGEN=/data/jonas/anaconda/lib/python2.7/site-packages/eigency/eigen_3.2.8/
 
 CXX=g++
@@ -13,8 +13,8 @@ cppbench.o : cppbench.cc
 	${CXX} -c cppbench.cc  -o cppbench.o ${CXXFLAGS}
 
 
-cppbench: cppbench.o forwardmodel.o
-	${CXX} cppbench.o  forwardmodel.o -o cppbench ${CXXFLAGS} ${LDFLAGS}  
+cppbench: cppbench.o
+	${CXX} cppbench.o -o cppbench ${CXXFLAGS} ${LDFLAGS}  
 
 clean:
 	rm cppbench.o
