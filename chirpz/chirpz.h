@@ -284,7 +284,7 @@ public:
             g_scale_vec(k) = std::pow(W_, (k*k/2.0f)); 
         }
         
-        g_scale_ = g_scale_vec.matrix() * g_scale_vec.matrix().transpose(); 
+        g_scale_ = g_scale_vec.matrix() * g_scale_vec.matrix().transpose() / (2*N_*2*N_);  
         
     }
     
@@ -299,30 +299,29 @@ public:
     Matrix compute(const Matrix & x) {
 
         Matrix yn = Matrix::Zero(L_, L_);
+
+        //yn.block(0,0, x.cols(), x.rows()) =
+        yn.block(0, 0, x.cols(), x.rows()) = (x.array() * yn_scale_.block(0, 0, x.cols(), x.rows()).array()).matrix();
         
-        for(int i = 0; i < x.rows(); ++i) {
-            for(int j = 0; j < x.cols(); ++j ) {
-                // FIXME IS THIS THE RIGHT ORDER? memory matters
-                yn(i, j) = x(i, j) * yn_scale_(i, j);
-            }
-        }
+        // for(int j = 0; j < x.cols(); ++j ) {
+        //     for(int i = 0; i < x.rows(); ++i) {
+        //         // FIXME IS THIS THE RIGHT ORDER? memory matters
+        //         yn(i, j) = x(i, j) * yn_scale_(i, j);
+        //     }
+        // }
         
         
-        Matrix Yr = fft(yn);
         
-        Matrix Gr = (Yr.array() * Vr_.array()).matrix();
+        Matrix gk = ifft((fft(yn).array() * Vr_.array()).matrix());
+
         
-        Matrix gk = ifft(Gr);
+        Matrix Xk = (gk.block(0,0, M_, M_).array() * g_scale_.array()).matrix(); 
+
         
-        Matrix Xk = Matrix::Zero(M_, M_);
-        for (int i = 0; i < M_; ++i) {
-            for(int j = 0; j < M_; ++j) { 
-                Xk(i, j) = g_scale_(i, j) * gk(i, j);
-            }
-        }
-        
-        Matrix out =  Xk / (2*N_*2*N_);
-        
+        Matrix out =  Xk; 
+
+
+
         return out; 
         
     }
@@ -339,7 +338,10 @@ private:
         T::fft_execute(fft_forward_plan_);
         
         Map<Matrix> out_field((c_t*) fft_out_, L_, L_) ;
+        EIGEN_ASM_COMMENT("begin");
         Matrix out = out_field;
+        EIGEN_ASM_COMMENT("end");
+
         return out; 
     }
     

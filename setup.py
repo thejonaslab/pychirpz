@@ -12,17 +12,18 @@ from Cython.Build import cythonize
 #os.environ["CC"] = "g++-5" 
 #os.environ["CXX"] = "g++-5"
 
-COMPILE_ARGS = ['-O3', '-DEIGEN_NO_AUTOMATIC_RESIZING', 
-                '-march=native', '-std=c++11']
+COMPILE_ARGS = ['-O3', '-DEIGEN_NO_AUTOMATIC_RESIZING', '-g', 
+                '-march=native', '-std=c++11', '-ffast-math', '-mfpmath=sse']
 
 if sys.platform == 'darwin':
     COMPILE_ARGS.append('-stdlib=libc++')
 
+EIGEN_DIR = "/data/jonas/pychirpz/src/eigen-eigen-67e894c6cd8f/"
 extensions = [Extension(name = "chirpz.cychirpz",
                         sources = ["chirpz/cychirpz.pyx", "chirpz/chirpz.cc"],
                         extra_compile_args =COMPILE_ARGS, 
-                        include_dirs = [np.get_include(), "./",] \
-                        + eigency.get_includes(include_eigen=True), 
+                        include_dirs = [np.get_include(), "./", EIGEN_DIR] \
+                        + eigency.get_includes(), # include_eigen=True), 
                         extra_link_args = ['-lm', '-lfftw3f', '-lfftw3', '-lboost_system', '-lboost_timer'], 
                         language='c++')
 ]

@@ -1,11 +1,6 @@
 import numpy as np
 import time
-import chirpz
 import chirpz.cychirpz
-import pandas as pd
-import tabulate
-import cPickle as pickle
-
 
 # This is a relatively simple benchmark to let us evaluate
 # how quickly we can do PSF evaluation for a 2d field, a common
@@ -15,15 +10,15 @@ import cPickle as pickle
 ITERS = 20
 
 MASKN = 256
-mask = np.random.rand(MASKN, MASKN).astype(np.complex32)
+mask = np.random.rand(MASKN, MASKN).astype(np.complex64)
 
 theta_step = np.pi/512.0
 N = 32
 theta_start =  - N//2 * theta_step
-ITERS = 100
+ITERS = 300
 A = np.exp(1j * theta_start)
 W = np.exp(-1j * theta_step)
-pCZ = chirpz.cychirpz.PyChirpZ2d32(len(x), N, A, W)
+pCZ = chirpz.cychirpz.PyChirpZ2d32(len(mask), N, A, W)
 
 t1 = time.time()
 for i in range(ITERS):
