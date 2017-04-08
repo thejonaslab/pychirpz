@@ -315,12 +315,13 @@ public:
         }
         
         
-        Matrix Yr = fft(yn);
+        auto Yr = fft(yn);
         
-        Matrix Gr = (Yr.array() * Vr_.array()).matrix();
+        auto Gr = (Yr.array() * Vr_.array()).matrix();
         
-        Matrix gk = ifft(Gr);
+        auto gk = ifft(Gr);
         
+
         Matrix Xk = Matrix::Zero(M_, M_);
         for (int i = 0; i < M_; ++i) {
             for(int j = 0; j < M_; ++j) { 
@@ -328,7 +329,7 @@ public:
             }
         }
         
-        Matrix out =  Xk / (2*N_*2*N_);
+        auto out =  Xk / (2*N_*2*N_);
         
         return out; 
         
@@ -336,7 +337,7 @@ public:
 
 private:
     
-    Matrix fft(const Matrix & in) {
+    Matrix fft(const Ref<const Matrix> & in) {
         assert(in.rows() == L_); 
         assert(in.cols() == L_); 
         Map<Matrix> in_f((c_t *)fft_in_, L_, L_);
@@ -350,7 +351,7 @@ private:
         return out; 
     }
     
-    Matrix ifft(const Matrix & in) {
+    Matrix ifft(const Ref<const Matrix> & in) {
         assert(in.rows() == L_); 
         assert(in.cols() == L_); 
         
