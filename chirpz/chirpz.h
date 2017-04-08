@@ -306,13 +306,16 @@ public:
     Matrix compute(const Matrix & x) {
 
         Matrix yn = Matrix::Zero(L_, L_);
+
+        yn.block(0, 0, x.rows(), x.cols()) =
+            (x.array() * yn_scale_.block(0, 0, x.rows(), x.cols()).array()).matrix();
         
-        for(int i = 0; i < x.rows(); ++i) {
-            for(int j = 0; j < x.cols(); ++j ) {
-                // FIXME IS THIS THE RIGHT ORDER? memory matters
-                yn(i, j) = x(i, j) * yn_scale_(i, j);
-            }
-        }
+        // for(int i = 0; i < x.rows(); ++i) {
+        //     for(int j = 0; j < x.cols(); ++j ) {
+        //         // FIXME IS THIS THE RIGHT ORDER? memory matters
+        //         yn(i, j) = x(i, j) * yn_scale_(i, j);
+        //     }
+        // }
         
         
         auto Yr = fft(yn);
@@ -322,12 +325,14 @@ public:
         auto gk = ifft(Gr);
         
 
-        Matrix Xk = Matrix::Zero(M_, M_);
-        for (int i = 0; i < M_; ++i) {
-            for(int j = 0; j < M_; ++j) { 
-                Xk(i, j) = g_scale_(i, j) * gk(i, j);
-            }
-        }
+        auto Xk = (g_scale_.array() * gk.block(0, 0, M_, M_).array()).matrix();
+        
+        // Matrix Xk = Matrix::Zero(M_, M_);
+        // for (int i = 0; i < M_; ++i) {
+        //     for(int j = 0; j < M_; ++j) { 
+        //         Xk(i, j) = g_scale_(i, j) * gk(i, j);
+        //     }
+        // }
         
         auto out =  Xk / (2*N_*2*N_);
         

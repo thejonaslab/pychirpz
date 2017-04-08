@@ -9,7 +9,7 @@ CXX=g++
 CXXFLAGS = -std=c++14 -g -O3 -ffast-math -march=native -I${EIGEN} -I ${CHIRPZ} -I./eigen
 LDFLAGS= -lfftw3f -lfftw3 -lboost_system -lboost_timer -lboost_program_options -lm
 
-cppbench.o : cppbench.cc
+cppbench.o : cppbench.cc ../chirpz/chirpz.h
 	${CXX} -c cppbench.cc  -o cppbench.o ${CXXFLAGS}
 
 
