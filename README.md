@@ -30,7 +30,10 @@ installed. On ubuntu-based linux this can be done via
 ```
 apt-get install  libfftw3-dev  libboost-dev
 ```
-
+Note you will probably want a bleeding-edge eigency
+```
+pip install git+https://github.com/wouterboomsma/eigency
+```
 
 ### OSX 
 
@@ -40,6 +43,10 @@ On OSX, make sure you have all the relevant build tools installed and install
 brew install boost fftw
 ```
 
+Note you will probably want a bleeding-edge eigency
+```
+pip install git+https://github.com/wouterboomsma/eigency
+```
 
 ## Benchmark 
 
