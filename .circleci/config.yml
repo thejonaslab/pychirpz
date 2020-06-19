@@ -9,8 +9,9 @@ commands:
     steps:
       - run:
           name: install linux packages
-          command:
+          command: |
             sudo apt-get update
+            
             sudo apt-get -yq install libfftw3-dev libboost-dev libeigen3-dev
             
 jobs:
