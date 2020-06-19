@@ -27,6 +27,7 @@ commands:
             # useful for debugging
             conda info -a
             echo 'export PATH=$HOME/miniconda/bin:$PATH' >> $BASH_ENV
+            
   setup_python_deps:
     descrpiton: install necessary ptyhon packages
     setps:
