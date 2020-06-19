@@ -58,14 +58,9 @@ commands:
             py.test --junitxml=test-results/junit.xml
       - store_test_results:
           path: tests/test-results
-
       - store_artifacts:
           path: tests/test_results
             
-          
-        
-            
-
 jobs:
   build-and-test:
     executor: python/default
