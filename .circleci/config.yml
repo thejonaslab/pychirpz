@@ -12,7 +12,7 @@ commands:
           command: |
             sudo apt-get update
             
-            sudo apt-get -yq install libfftw3-dev libboost-dev libeigen3-dev
+            sudo apt-get -yq install libfftw3-dev libboost-dev libeigen3-dev g++ libboost-system-dev libboost-timer-dev libboost-system libboost-timer
             
 jobs:
   build-and-test:
