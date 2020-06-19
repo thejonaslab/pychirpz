@@ -53,7 +53,7 @@ def test_fft2d_eq():
 
             x_chirpz = cychirpz.zoom_fft2(x, start, w_delta, M)
 
-            print x_chirpz.shape
+            print(x_chirpz.shape)
 
             x_fft = np.roll(x_fft, -start_idx, axis=0)
             x_fft = np.roll(x_fft, -start_idx, axis=1)

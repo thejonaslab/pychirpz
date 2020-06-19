@@ -1,5 +1,5 @@
 import os
-from pychirpz import chirpz, chirpz2d, zoom_fft, zoom_fft2
+from .pychirpz import chirpz, chirpz2d, zoom_fft, zoom_fft2
 
 def get_includes():
     import eigency
