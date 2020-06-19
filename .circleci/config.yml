@@ -62,8 +62,12 @@ jobs:
           name: Test
       - run:
           #command: ./manage.py test
-          command: which python
-          name: python Check
+          command: |
+            . ~/.bashrc
+            . ~/miniconda/etc/profile.d/conda.sh
+            conda activate test-environment
+            which python
+          name: python check
 
 workflows:
   main:
