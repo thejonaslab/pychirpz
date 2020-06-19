@@ -3,11 +3,22 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
 
+commands:
+  preinstall:
+    description:  "Set up system-level packages"
+    steps:
+      - run:
+          name: install linux packages
+          command:
+            sudo apt-get update
+            sudo apt-get -yq install libfftw3-dev libboost-dev libeigen3-dev
+            
 jobs:
   build-and-test:
     executor: python/default
     steps:
       - checkout
+      - preinstall
       #- python/load-cache
       #- python/install-deps
       #- python/save-cache
