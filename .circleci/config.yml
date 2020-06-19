@@ -39,7 +39,7 @@ commands:
             . ~/.bashrc
             . ~/miniconda/etc/profile.d/conda.sh
             printenv
-            conda create -q -n test-environment numba python cython nose py.test
+            conda create -q -n test-environment numba python cython nose pytest
             conda activate test-environment
             pip install pyfftw
             pip install pip install git+https://github.com/wouterboomsma/eigency
