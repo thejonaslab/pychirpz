@@ -43,6 +43,27 @@ commands:
             conda activate test-environment
             pip install pyfftw
             pip install pip install git+https://github.com/wouterboomsma/eigency
+
+  run_tests:
+    description: run pytests
+    steps:
+      - run:
+        command: |
+          command: |
+            . ~/.bashrc
+            . ~/miniconda/etc/profile.d/conda.sh
+            conda activate test-environment
+            cd tests
+            mkdir test-results
+            py.test --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: tests/test-results
+
+      - store_artifacts:
+          path: tests/test_results
+            
+          
+        
             
 
 jobs:
@@ -77,14 +98,8 @@ jobs:
             ls
             python setup.py install
           name: build install
-      - run:
-          command: |
-            . ~/.bashrc
-            . ~/miniconda/etc/profile.d/conda.sh
-            conda activate test-environment
-            cd tests
-            py.test
-            
+      - run_tests
+      
 workflows:
   main:
     jobs:
