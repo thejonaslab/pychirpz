@@ -26,6 +26,7 @@ commands:
             conda update -q conda
             # useful for debugging
             conda info -a
+            echo 'export PATH=$HOME/miniconda/bin:$PATH' >> $BASH_ENV
 
 jobs:
   build-and-test:
