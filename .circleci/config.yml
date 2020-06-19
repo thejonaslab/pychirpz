@@ -56,9 +56,9 @@ commands:
               mkdir test-results
               py.test --junitxml=test-results/junit.xml
       - store_test_results:
-          path: tests
+          path: tests/test-results
       - store_artifacts:
-          path: tests
+          path: tests/test-results
             
 jobs:
   build-and-test:
