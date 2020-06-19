@@ -26,7 +26,6 @@ commands:
             conda update -q conda
             # useful for debugging
             conda info -a
-            
 
 jobs:
   build-and-test:
@@ -42,6 +41,10 @@ jobs:
           #command: ./manage.py test
           command: echo "hello world"
           name: Test
+      - run:
+          #command: ./manage.py test
+          command: which python
+          name: Python Check
 
 workflows:
   main:
