@@ -49,6 +49,7 @@ commands:
     description: run pytests
     steps:
       - run:
+          name: Run the tests
           command: |
               . ~/.bashrc
               . ~/miniconda/etc/profile.d/conda.sh
@@ -72,10 +73,6 @@ jobs:
       #- python/load-cache
       #- python/install-deps
       #- python/save-cache
-      - run:
-          #command: ./manage.py test
-          command: echo "hello world"
-          name: Test
       - run:
           #command: ./manage.py test
           command: |
