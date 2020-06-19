@@ -48,14 +48,13 @@ commands:
     description: run pytests
     steps:
       - run:
-        command: |
           command: |
-            . ~/.bashrc
-            . ~/miniconda/etc/profile.d/conda.sh
-            conda activate test-environment
-            cd tests
-            mkdir test-results
-            py.test --junitxml=test-results/junit.xml
+              . ~/.bashrc
+              . ~/miniconda/etc/profile.d/conda.sh
+              conda activate test-environment
+              cd tests
+              mkdir test-results
+              py.test --junitxml=test-results/junit.xml
       - store_test_results:
           path: tests/test-results
       - store_artifacts:
