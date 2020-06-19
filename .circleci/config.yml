@@ -35,7 +35,9 @@ commands:
       - run:
           name: conda environment create
           command: |
-            . ~/.bashrc            
+            cat ~/.bashrc
+            . ~/.bashrc
+            printenv
             conda create -q -n test-environment numba python cython nose
             conda activate test-environment
             pip install pyfftw
