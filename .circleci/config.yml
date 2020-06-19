@@ -75,8 +75,7 @@ jobs:
             . ~/miniconda/etc/profile.d/conda.sh
             conda activate test-environment
             ls
-            cd pychirpz
-            python setup.py
+            python setup.py install
             
 workflows:
   main:
