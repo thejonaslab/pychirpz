@@ -1,9 +1,13 @@
 
 
 all: cppbench
+## Note you might have to adjust these
 
-CHIRPZ = ../chirpz/
+
+CHIRPZ = /data/jonas/pychirpz/chirpz/
+#CHIRPZ = /Users/jonas/projects/pychirpz/chirpz/
 EIGEN=/data/jonas/anaconda/lib/python2.7/site-packages/eigency/eigen_3.2.8/
+#EIGEN=/Users/jonas/anaconda/lib/python2.7/site-packages/eigency/eigen_3.2.8/
 
 CXX=g++
 CXXFLAGS = -std=c++14 -g -O3 -ffast-math -march=native -I${EIGEN} -I ${CHIRPZ} -I./eigen

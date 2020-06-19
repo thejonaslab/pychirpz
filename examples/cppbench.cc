@@ -52,20 +52,24 @@ int chirpz_benchmark(int argc, const char *argv[]) {
     chirpz::ChirpZ2d<chirpz::c32_t> cz(N, M, A, W) ;
     auto setup_ns = boost::chrono::nanoseconds(setup_timer.elapsed().wall); 
     auto setup_s = boost::chrono::duration_cast<boost::chrono::seconds>(setup_ns);
+    fc32_t accum = 0.0; 
     std::cout << setup_s << " for setup" << std::endl;
 
     {
         MatrixXcf x = MatrixXcf::Random(M, M);
         boost::timer::cpu_timer timer;
         for(int i = 0; i < iters; ++i) { 
-            auto y = cz.compute(x); 
+            auto y = cz.compute(x);
+            accum = accum + y.array().sum(); 
         }
+        
         auto ns = boost::chrono::nanoseconds(timer.elapsed().wall);
         auto ms = boost::chrono::duration_cast<boost::chrono::milliseconds>(ns);
  
         std::cout << ms / double(iters) << " per eval" << std::endl; 
     }
-
+    std::cout << "accumulation is" << accum << std::endl; 
+    return 0; 
 }
 
 
