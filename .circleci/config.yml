@@ -27,6 +27,7 @@ commands:
             # useful for debugging
             conda info -a
             echo 'export PATH=$HOME/miniconda/bin:$PATH' >> $BASH_ENV
+            conda init bash
             
   setup_python_deps:
     description: install necessary ptyhon packages
@@ -58,7 +59,7 @@ jobs:
       - run:
           #command: ./manage.py test
           command: which python
-          name: Python Check
+          name: python Check
 
 workflows:
   main:
