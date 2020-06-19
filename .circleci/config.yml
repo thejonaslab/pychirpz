@@ -40,7 +40,7 @@ commands:
             . ~/.bashrc
             . ~/miniconda/etc/profile.d/conda.sh
             printenv
-            conda create -q -n test-environment numba python cython nose pytest eigen libboost
+            conda create -q -n test-environment numba python cython nose pytest eigen boost libboost
             conda activate test-environment
             pip install pyfftw
             pip install pip install git+https://github.com/wouterboomsma/eigency
