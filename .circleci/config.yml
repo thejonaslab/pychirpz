@@ -29,7 +29,7 @@ commands:
             echo 'export PATH=$HOME/miniconda/bin:$PATH' >> $BASH_ENV
             
   setup_python_deps:
-    descrpiton: install necessary ptyhon packages
+    description: install necessary ptyhon packages
     setps:
       - run:
           name: conda environment create
