@@ -37,6 +37,7 @@ commands:
           command: |
             cat ~/.bashrc
             . ~/.bashrc
+            . ~/miniconda/etc/profile.d/conda.sh
             printenv
             conda create -q -n test-environment numba python cython nose
             conda activate test-environment
