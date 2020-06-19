@@ -68,7 +68,16 @@ jobs:
             conda activate test-environment
             which python
           name: python check
-
+          
+      - run:
+          command: |
+            . ~/.bashrc
+            . ~/miniconda/etc/profile.d/conda.sh
+            conda activate test-environment
+            ls
+            cd pychirpz
+            python setup.py
+            
 workflows:
   main:
     jobs:
