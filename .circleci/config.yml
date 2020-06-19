@@ -30,7 +30,7 @@ commands:
             
   setup_python_deps:
     description: install necessary ptyhon packages
-    setps:
+    steps:
       - run:
           name: conda environment create
           command: |
